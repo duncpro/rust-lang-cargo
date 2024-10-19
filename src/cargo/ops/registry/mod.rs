@@ -267,7 +267,7 @@ fn get_initial_source_id_from_registry_or_index(
     }
 }
 
-pub(crate) fn get_replacement_source_ids(
+fn get_replacement_source_ids(
     gctx: &GlobalContext,
     sid: SourceId,
 ) -> CargoResult<(SourceId, SourceId)> {
