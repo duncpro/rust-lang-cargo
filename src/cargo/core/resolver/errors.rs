@@ -353,7 +353,16 @@ pub(super) fn activation_error(
             ));
             msg.push('\n');
         }
-        msg.push_str(&format!("location searched: {}\n", dep.source_id()));
+        msg.push_str(&format!("location searched: {}", dep.source_id()));
+
+        if let Some(gctx) = gctx {
+            if let Ok((_, repl_sid)) = crate::ops::registry::get_replacement_source_ids(gctx, dep.source_id()) {
+                msg.push_str(&format!(" (replaced with `{}`)", repl_sid));
+            }
+        }
+
+        msg.push('\n');
+
         msg.push_str("required by ");
         msg.push_str(&describe_path_in_context(
             resolver_ctx,
